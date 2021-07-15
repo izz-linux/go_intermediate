@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -55,7 +56,8 @@ func checkLink(link string, c chan string) {
 		d2 := []byte(" -- [ALERT] -- this  is down\n")
 		var d3 []byte = append(d1, d2...)
 		// NEED TO APPEND, NOT OVERWRITE
-		err := ioutil.WriteFile("/Users/izz/develop/custom/engineering/golang/Learning/intmon_go/dat1", d3, 0644)
+		err := os.Open("/Users/izz/develop/custom/engineering/golang/Learning/intmon_go/log.log")
+			// ioutil.WriteFile("/Users/izz/develop/custom/engineering/golang/Learning/intmon_go/dat1", d3, 0644)
 		check(err)
 		fmt.Println(link, "might be down!")
 		c <- link
@@ -66,6 +68,7 @@ func checkLink(link string, c chan string) {
 	d8 := []byte(" -- [INFO] -- this  is up\n")
 	var d9 []byte = append(d7, d8...)
 	// NEED TO APPEND, NOT OVERWRITE
+	err := os.Open("/Users/izz/develop/custom/engineering/golang/Learning/intmon_go/log.log")
 	err = ioutil.WriteFile("/Users/izz/develop/custom/engineering/golang/Learning/intmon_go/dat1", d9, 0644)
 	check(err)
 	fmt.Println(link, "is up!")
